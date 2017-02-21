@@ -163,10 +163,53 @@ Let's continue by looking at a more complicated but powerful workflow.
 
 Whereas in the Centralized Workflow every developer is essentially working on the same branch, the **Feature Branch Workflow** allows for drastically more flexibility by virtue of a theoretically infinite number of branches each representing a distinct feature of the application.
 
-Of course, just having a bunch of features like this is an extreme case of disorganization; we need some way of *collecting* them together to meaningful batches.
+Take the case of John and Larry from the Centralized Repository story:
+
+#### Continued Example
+
+John and Larry have been getting into some heated arguments over the phone, because each one of them keeps stepping on each other's toes.
+
+John wanted to work on `main.cpp` after pulling Larry's changes which initialized `main.cpp`. However, Larry, all the way across the US, was doing the same, as that was his original intention in creating that file.
+
+Before long, when one tried to pull the most recent changes with `git pull`, sparks flew and the resulting merge-conflicted-file looked like the middle of an active warzone. Of course no one wanted to blame him or herself, so bad words were exchanged.
+
+In the end, Larry did some research and found out about the **`git branch`** command. Turns out, you can create a personal branch that allows you to escape pesks like John.
+
+> Larry: `git branch new_feature`
+>
+> Larry: There you go, my own branch. Eh, I'm not checked into it.
+>
+> Larry: `git checkout new_feature`
+>
+> Larry: Nice. So let's get started.
+
+Larry carries on doing his work here.
+
+Eventually, Larry decides his changes need some pushing to the `master` branch, because they're done and ready to go. For this, he makes a pull request (PR) on Github. John can now take a look at this PR, comment on it, tell Larry to edit this or that, and so on, before Larry's work from the `new_feature` branch is merged to `master`.
+
+And so that's what happens: Larry makes the PR, and after John inspects the changes, he realizes there's a crucial bug in Larry's commit. Larry hurriedly goes back to his code and makes some changes to fix that bug. He commits his changes, and the PR is automatically updated to reflect that. John can see the changes and verifies that all is good to go. He merges the changes using the **merge** technique provided by Github, and a new *merge commit* is added to the tip of `master` representing the merge itself.
+
+**Important Note**: Notice that John merged the PR using the plain old merge technique. He could have used **rebase**, which would have avoided adding a brand new merge commit, and aligned the `master` branch's history linearly with the merge. If you are confused about all this, don't worry about it. If you ever think to yourself "My gosh, all these 'merge commits' littering my commit history is getting annoying", only then can you go ahead and research the **difference** between `merge` and `rebase`. [I recommend this reading.](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+
+**Important Note 2**: Larry only had a single feature branch. Theoretically, you can have an infinite number of feature branches, as far as your creativity and hard drive allow. The workflow is the same: the feature branch's 'owner' (there doesn't *have* to be a owner, though) commits changes, submits a PR, gets a review, possibly goes back to fix stuff, and eventually (hopefully) gets his commit merged.
+
+### Gitflow Workflow
+
+The Gitflow Workflow is an expansion on the Feature Branch Workflow. It is meant to be *robust*, with clear rules and guidelines, and a nice framework for many organizations to work off of.
+
+The Feature Branch Workflow allowed for a lot of callobratory effort, as discussed above. But of course, just having a bunch of feature branches like this is an extreme case of disorganization; we need some way of *collecting* them together to meaningful batches.
+
+#### Developer Branch
 
 For that, we introduce the **Developer** branch.
 
 ![](img/master-dev.png)
+(all images of this format from www.atlassian.com)
 
-### Gitflow Workflow
+The `dev` branch serves as an integration point for features. Meanwhile, `master` serves as the "official" version of the product in question. 
+
+Here are some rules to follow when working under the feature branch 
+
+1.  You don't push to `master` from anything *except* `dev`.
+
+.......taking a break........
