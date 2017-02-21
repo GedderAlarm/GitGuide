@@ -6,6 +6,7 @@ If you are well aware of the difference between a **distributed** and **centrali
 -  [Workflows](#workflows)
   -  [Centralized Workflow](#centralized-workflow)
   -  [Feature Branch Workflow](#feature-branch-workflow)
+  -  [Gitflow Workflow](#gitflow-workflow)
 
 ## Introduction
 
@@ -159,3 +160,13 @@ This is *not* the last time you'll have to deal with something like this using g
 Let's continue by looking at a more complicated but powerful workflow.
 
 ### Feature Branch Workflow
+
+Whereas in the Centralized Workflow every developer is essentially working on the same branch, the **Feature Branch Workflow** allows for drastically more flexibility by virtue of a theoretically infinite number of branches each representing a distinct feature of the application.
+
+Of course, just having a bunch of features like this is an extreme case of disorganization; we need some way of *collecting* them together to meaningful batches.
+
+For that, we introduce the **Developer** branch.
+
+![](img/master-dev.png)
+
+### Gitflow Workflow
