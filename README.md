@@ -141,6 +141,8 @@ Since Larry already committed his changes to the same branch John is working on 
 
 **Important Note**: Notice that John gave the `git pull` command the option `--rebase`. This is one of those git-has-a-bad-UI things, in my opinion. If you type just `git pull ...`, git will not only **fetch** changes (which means to essentially download any changes from upstream, but not do anything with them to your actual working directory), but it'll also immediately merge them with what you currently have. This causes git to have an extra "merge commit" for everytime you pull, on top of all the commits you seek to push. Long story short, this gets messy, but others may disagree. Some will say, "No, this extra commit can be useful information", while others would share my sentiment and call it dirty. Sometimes the same people change their opinion according to circumstance. Clearly, John's on my side here. We've yet to see where Larry stands.
 
-In the end, it's up to you: do you want that extra commit indicating that you pulled and automatically merged, or not? If not, give git the `--rebase` option each time you pull. This is *not* the last time you'll have to deal with something like this using git. Just pick a way, and stick with it, unless the project requirements insist otherwise.
+In the end, it's up to you: do you want that extra commit indicating that you pulled and automatically merged, or not? If not, give git the `--rebase` option each time you pull. This is *not* the last time you'll have to deal with something like this using git. Just pick a way, and stick with it, unless the project requirements insist otherwise. In that case, it may be necessary to follow the project's workflow. That is the point of this document: to decide on practices and workflows.
+
+Let's continue by looking at a more complicated but powerful workflow.
 
 ### Feature Branch Workflow
