@@ -71,6 +71,8 @@ John is in New York working for a company hosted somewhere in the middle of the 
 >
 > John: `git init AwesomeNewProject`
 >
+> John: `cd AwesomeNewProject`
+>
 > John: `cat "# Awesome New Project" >> README.md`
 >
 > John: Alright, this looks ready to go!
@@ -97,7 +99,7 @@ Meanwhile, a few thousand miles away:
 >
 > Larry: Great, it worked!
 >
-> Larry: `ls`
+> Larry: `cd AwesomeNewProject && ls`
 >
 > Larry: Just a `README.md` file... alright let's get something started.
 >
