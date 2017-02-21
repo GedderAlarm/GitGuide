@@ -133,10 +133,12 @@ John comes back into the picture:
 >
 > John: What's that? Oh, sneaky Larry. He started work on this before me. Alright, let's grab his work.
 >
-> John: `git pull github master` (success, no conflicts)
+> John: `git pull --rebase github master` (success, no conflicts)
 >
 > John: Oh nice, he already started on `main.cpp`! We're well on our way.
 
 Since Larry already committed his changes to the same branch John is working on (`master`), git disallowed John from pushing unless he caught up ("pull"ed) with the most recently pushed commits from others. Once he pulled Larry's additions, git no longer complained.
+
+**Important Note**: Notice that John gave the `git pull` command the option `--rebase`. This is one of those git-has-a-bad-UI things, in my opinion. If you type just `git pull ...`, git will not only **fetch** changes (which means to essentially download any changes from upstream, but not do anything with them to your actual working directory), but it'll also immediately merge them with what you currently have. This causes git to have an extra "merge commit" for everytime you pull, on top of all the commits you seek to push. Long story short, this gets messy, but others may disagree. Some will say, "No, this extra commit can be useful information", while others would share my sentiment and call it dirty. Sometimes the same people change their opinion according to circumstance. In the end, it's up to you: do you want that extra commit indicating that you pulled and automatically merged, or not? If not, give git the `--rebase` option each time you pull.
 
 ### Feature Branch Workflow
