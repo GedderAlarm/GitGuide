@@ -197,7 +197,7 @@ And so that's what happens: Larry makes the PR, and after John inspects the chan
 
 The Gitflow Workflow is an expansion on the Feature Branch Workflow. It is meant to be *robust*, with clear rules and guidelines, and a nice framework for many organizations to work off of.
 
-The Feature Branch Workflow allowed for a lot of callobratory effort, as discussed above. But of course, just having a bunch of feature branches like this is an extreme case of disorganization; we need some way of *collecting* them together to meaningful batches.
+The Feature Branch Workflow allowed for a lot of callobratory effort, as discussed above. But of course, just having a bunch of feature branches like this is an extreme case of disorganization; we need some way of *collecting* them together to meaningful batches, otherwise our product will be an awkward conglomeration of features people decided to implement when they felt like it.
 
 #### Developer Branch
 
@@ -208,8 +208,49 @@ For that, we introduce the **Developer** branch.
 
 The `dev` branch serves as an integration point for features. Meanwhile, `master` serves as the "official" version of the product in question. 
 
-Here are some rules to follow when working under the feature branch 
+Let's clarify what we mean:
 
-1.  You don't push to `master` from anything *except* `dev`.
+-  `dev` is where all feature branches not only originally branch off of, but also merge into when they're done with.
+-  `master` is where a stable, working version of the product lies, meaning a *batch* of meaningful features were collected together and merged onto master to form a new version of the product (i.e. v0.2, v2.3, etc.)
 
-.......taking a break........
+Here are some rules to follow when using this `master`-`dev`-`feature` branch setup: 
+
+-  **Only** `dev` branches off of `master`.
+-  **Only** `dev` merges into `master`.
+-  **Only** `feature` branches will branch off of `dev`.
+-  **Only** `feature` branches will merge into `dev`.
+
+If you're a curious one and are interested in what [Release Branches](#release-branch) and [Hotfix Branches](#hotfix-branches) are, please take these rules lightly. They're broken when working with those types of branches. If you don't care, then these rules are mostly enough, albeit technically incorrect if your team *does* end up using `release` and `hotfix` branches.
+
+Anyhow, take a look at this to get the visual idea of the `master`-`dev`-`feature`:
+
+![](img/master-dev-feature.png)
+
+Notice how a `feature` branch never came directly off of `master`; only from `dev`. That's important.
+
+If this picture continued on, you'd eventually see `dev` merge into `master` the way some of the `feature` branches merge into `dev`. When that happens (i.e. merging `dev` into `master`), most likely your team would **tag** (using the `git tag` command) that merge commit with a version name (like v0.2), indicating that this is a new release of the product.
+
+From here, you should be able to work very comfortably on any project using the Gitflow workflow, since the `dev` branch and the `feature` branches make up the bulk of the workflow.
+
+However, for the curious ones, there's more.
+
+#### Release Branch
+
+Yes, it's great if we can gather together a bunch of features into one point, i.e. the `dev` branch. But as everyone knows, some bug or what not will come up as a result of the complexities of integrating those features.
+
+And so if you continuously integrate new features while trying to fix current integration bugs, you'll most likely just produce even more bugs.
+
+To fix that, we introduce the **Release** branch.
+
+![](img/master-dev-feature-release.png)
+
+To avoid piling features upon features when you've got enough of them, potentially causing bugs to constantly pop their heads, we *freeze* all new feature development on a `release` branch.
+
+The `release` branch will branch off of `dev`, at a point in time decided upon by the team. The `release` branch will not accept any new features that may be merged onto `dev` after it's been created. The `release` branch is meant for one very specific purpose: polishing what we've *got*, and getting it production ready, because it's headed to `master`.
+
+This breaks a rule from before, as we mentioned it would. Clearly, `dev` is *not* merging into `master`, rather `release` is, when it's been fully polished. Of course, `release` *is* a version of `dev`, one where all new features are rejected; if it suits your thinking, you don't have to change the "rules" in your mind.
+
+Inevitably, we've all experienced using products which, even after having been "polished" by some of the best software developers in the world, come out with unforeseen bugs. The next section talks about dealing with production bugs.
+
+#### Hotfix Branch
+
