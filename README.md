@@ -7,6 +7,9 @@ If you are well aware of the difference between a **distributed** and **centrali
   -  [Centralized Workflow](#centralized-workflow)
   -  [Feature Branch Workflow](#feature-branch-workflow)
   -  [Gitflow Workflow](#gitflow-workflow)
+    -  [Developer Branch](#developer-branch)
+    -  [Release Branch](#release-branch)
+    -  [Hotfix Branch](#hotfix-branch)
 
 ## Introduction
 
@@ -145,7 +148,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 > John: What's that? Oh, sneaky Larry. He started work on this before me. Alright, let's grab his work.
 >
-> John: `git pull --rebase github master` (success, no conflicts)
+> John: `git pull --rebase` (success, no conflicts)
 >
 > John: Oh nice, he already started on `main.cpp`! We're well on our way.
 
@@ -254,3 +257,19 @@ Inevitably, we've all experienced using products which, even after having been "
 
 #### Hotfix Branch
 
+In order to *maintain* or *hotfix* a problem that comes up in `master`, we branch off of `master` whereever that bug occured into a `hotfix` or `maintenance` branch (either name works), and fix that bug.
+
+When the bug is fixed, we merge `hotfix`/`maintenance` into *both* `master` *and* `dev`. Why? It's obvious that you merge it into `master`: we're fixing `master`'s problem. As for `dev`, it's because `dev` branched off of `master` before and will have possessed this bug too, so we apply the fix there as well.
+
+Here's a way of visualizing it:
+
+![](img/master-dev-feature-release-maintenance.png)
+
+## Extra Readings
+
+-  [Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows#forking-workflow)
+-  [Integration-Manager Workflow](https://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows#_integration_manager)
+-  [Dictator and Lieutenants Workflow (used for the Linux Kernel project)](https://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows#_dictator_and_lieutenants_workflow)
+-  [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+-  [Rebasing (more details)](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+-  [Git Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
